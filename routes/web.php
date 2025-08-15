@@ -32,3 +32,11 @@ Route::get('/test-db', function () {
         return "<h2 style='color: red;'>Error: " . $e->getMessage() . "</h2>";
     }
 });
+Route::get('/setup', function () {
+    try {
+        Artisan::call('migrate:fresh', ['--force' => true]);
+        return '¡Tablas creadas exitosamente! <a href="/">Ir al inicio</a>';
+    } catch (\Exception $e) {
+        return 'Error: ' . $e->getMessage();
+    }
+});
